@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get install -y apache2
 
 # Expose port 8081
-EXPOSE 8081
+EXPOSE 80
 
 # Start Apache service
 CMD ["apache2ctl", "-D", "FOREGROUND"]
