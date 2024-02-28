@@ -1,5 +1,5 @@
 # Use the official Ubuntu base image
-FROM ubuntu:22.04
+FROM ubuntu:latest
 
 # Update the package lists # Install Apache
 RUN apt-get update
