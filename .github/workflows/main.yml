@@ -31,7 +31,7 @@ jobs:
 
     - name: Test Docker image
       run: |
-        docker run -d -p 8081:8081 --name test1 ajinkya924/Assignment1:latest
+        docker run -d -p 8081:8081 --name test1 ajinkya924/assignment1:latest
         sleep 10  # Wait for the application to start
         curl localhost:8081 || exit 1
 
@@ -67,7 +67,7 @@ jobs:
 
     - name: Run dive
       run: |
-        dive --ci --highestUserWastedPercent=10 ajinkya924/Assignment1:latest
+        dive --ci --highestUserWastedPercent=10 ajinkya924/assignment1:latest
         
   push:
     needs: [build, test, lint] # Only run the push job if the build, test, and lint jobs are successful
@@ -87,4 +87,4 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }} # Set the password as a secret in your repository
 
     - name: Push Docker image
-      run: docker push ajinkya924/Assignment1:latest
+      run: docker push ajinkya924/assignment1:latest
