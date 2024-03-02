@@ -49,8 +49,8 @@ jobs:
 
     - name: Run dive
       run: |
-        docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive --ci ajinkya924/assignment1:latest
-        
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive --ci ajinkya924/assignment1:latest  
+              
   push:
     needs: [build, test, lint] # Only run the push job if the build, test, and lint jobs are successful
     runs-on: ubuntu-latest
