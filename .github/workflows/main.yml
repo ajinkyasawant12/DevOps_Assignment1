@@ -43,31 +43,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install Dockerfilelint
-      run: |
-        wget -O dockerfilelint https://github.com/replicatedhq/dockerfilelint/releases/download/v0.2.0/dockerfilelint-linux-amd64
-        chmod +x dockerfilelint
-        sudo mv dockerfilelint /usr/local/bin/
-
-    - name: Install dive (optional)
-      run: |
-        DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
-        curl -OL https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.deb
-        sudo apt install ./dive_${DIVE_VERSION}_linux_amd64.deb
-
     - name: Run Dockerfilelint
       run: |
-        dockerfilelint Dockerfile
-        status=$?  # Get the exit status of the previous command
-        if [ $status -eq 0 ]; then
-          echo "Dockerfile linting passed"
-        else
-          echo "Dockerfile linting failed"
-          exit 1  # Exit with a non-zero status code to indicate failure
+        docker run -v `pwd`/Dockerfile:/Dockerfile replicated/dockerfilelint /Dockerfile
 
     - name: Run dive
       run: |
-        dive --ci --highestUserWastedPercent=10 ajinkya924/assignment1:latest
+        docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive --ci ajinkya924/assignment1:latest
         
   push:
     needs: [build, test, lint] # Only run the push job if the build, test, and lint jobs are successful
