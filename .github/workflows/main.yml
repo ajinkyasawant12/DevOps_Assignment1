@@ -67,9 +67,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }} # Set the username as a secret in your repository
         password: ${{ secrets.DOCKER_PASSWORD }} # Set the password as a secret in your repository
-
-    - name: Push Docker image
-      run: docker push ajinkya924/assignment1:latest
     
     - name: Build and Push
       uses: docker/build-push-action@v5
