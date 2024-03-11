@@ -8,6 +8,7 @@ on:
       - master # Trigger the workflow only if the push is made to the main branch
 
 jobs:
+  runMultipleCommands:
   build:
     runs-on: ubuntu-latest
 
