@@ -19,7 +19,10 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Build Docker image
-      run: docker buildx build --platform linux/amd64,linux/arm64 -t ajinkya924/assignment1:latest .
+      run: |
+      echo "build maven"
+      mvn compile
+      docker buildx build --platform linux/amd64,linux/arm64 -t ajinkya924/assignment1:latest .
 
   test:
     needs: build # Only run the test job if the build job is successful
